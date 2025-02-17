@@ -1,0 +1,7 @@
+50 is lower than answer. Chance left : 6
+75 is bigger than answer. Chance left : 5
+62 is bigger than answer. Chance left : 4
+56 is bigger than answer. Chance left : 3
+53 is bigger than answer. Chance left : 2
+51 is lower than answer. Chance left : 1
+You win. Answer is 52
