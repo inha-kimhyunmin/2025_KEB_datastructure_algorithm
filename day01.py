@@ -1,39 +1,30 @@
-def print_poly(f_x, t_x) -> str:
-    poly_expression = "f(x) = "
-
-    for i in range(len(f_x)):
-        coefficient = f_x[i]
-        term = t_x[i]
-
-        if coefficient > 0:
-            if i > 0:
-                poly_expression = poly_expression + "+"
-            if i < len(f_x) - 1:
-              poly_expression = poly_expression + f'{coefficient}x^{term} '
-            else:
-                poly_expression = poly_expression + f'{coefficient}'
-        elif coefficient < 0:
-            if i < len(f_x) - 1:
-                poly_expression = poly_expression + f'{coefficient}x^{term} '
-            else:
-                poly_expression = poly_expression + f'{coefficient}'
-
-    return poly_expression
+# dynamic programming
+memo = dict()
 
 
-def calculation_poly(x_value, f_x, t_x) -> int:
-    return_value = 0
+def fibonacci_recursion(n) -> int:
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursion(n - 2) + fibonacci_recursion(n - 1)
 
-    for i in range(len(f_x)):
-        coefficient = f_x[i]
-        term = t_x[i]
-        return_value += coefficient * pow(x_value, term)
-    return return_value
+
+def fibonacci_dp(n):
+    """
+    n번째 피보나치 수를 구하는 코드
+    피보나치 함수 with 다이나믹 프로그래밍
+    :param n: int
+    :return: int
+    """
+    if n in memo: #key값이 memo안에 있는 경우
+        return memo[n] #n값에 해당하는 value 리턴
+    elif n <= 1:
+        return n
+    else:
+        memo[n] = fibonacci_dp(n - 1) + fibonacci_dp(n - 2)
+        return memo[n]
 
 
-fx = [2, 3, 4, -9]  # 계수
-tx = [20, 7, 2, 0]  # 지수
-
-if __name__ == "__main__":
-    print(print_poly(fx, tx))
-    print(calculation_poly(int(input("x 값 : ")), fx, tx))
+print(fibonacci_dp(30))
