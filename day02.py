@@ -30,15 +30,15 @@ class LinkedList:
                     break
                 current = current.next
 
-    def printall(self):
-        current = self.head
-        while current:
-            print(f"{current.data}", end = ' ')
-            current = current.next
-        print()
+
 
     def __str__(self):
-        return "링크드 리스트 입니다."
+        current = self.head
+        return_str = ""
+        while current:
+            return_str += f"{current.data} "
+            current = current.next
+        return return_str
 
 
 a = LinkedList()
@@ -49,8 +49,6 @@ a.append(3)
 a.append(4)
 a.append(5)
 
-a.printall()
+print(a)
 a.delete(4)
-a.printall()
-
 print(a)
