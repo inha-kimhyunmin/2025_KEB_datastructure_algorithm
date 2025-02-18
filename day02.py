@@ -1,16 +1,10 @@
 def is_queue_full() :
     global size, queue, front, rear
-    if rear != size - 1:
-        return False
-    elif (front == -1) and (rear == size - 1): #front가 맨 뒤, rear도 맨 뒤
+    if rear - front == 4:
         return True
     else:
-        for i in range(front + 1, size):
-            queue[i-1] = queue[i]
-            queue[i] = None
-        front = front - 1
-        rear = rear - 1
         return False
+
 
 def is_queue_empty() :
     global size, queue, front, rear
@@ -24,17 +18,17 @@ def en_queue(data) :
     if is_queue_full():
         print("큐가 꽉 찼습니다.")
         return
+    queue[rear % 4] = data
     rear += 1
-    queue[rear] = data
 
 def de_queue() :
     global size, queue, front, rear
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
+    data = queue[front % 4]
+    queue[front % 4] = None
     front += 1
-    data = queue[front]
-    queue[front] = None
     return data
 
 def peek() :
@@ -44,10 +38,15 @@ def peek() :
         return None
     return queue[front+1]
 
+def printqueue(queue):
+    global size, front, rear
+    for i in range(front,rear):
+        print(queue[i % 4], end = ' ')
+    print()
 
 size = int(input("큐의 크기를 입력 : "))
 queue = [None for _ in range(size)]
-front = rear = -1
+front = rear = 0
 
 if __name__ == "__main__" :
     while True:
@@ -57,13 +56,13 @@ if __name__ == "__main__" :
         elif menu== 'E' or menu == 'e' :
             data = input("입력할 데이터 : ")
             en_queue(data)
-            print(queue)
+            printqueue(queue)
         elif menu== 'D' or menu == 'd' :
             print("삭제된 데이터 : ", de_queue())
-            print(queue)
+            printqueue(queue)
         elif menu== 'P' or menu == 'p' :
             print("확인된 데이터 : ", peek())
-            print(queue)
+            printqueue(queue)
         else:
             print("입력이 잘못됨")
     print("프로그램 종료!")
