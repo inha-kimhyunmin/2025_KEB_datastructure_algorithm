@@ -4,16 +4,16 @@ def check_bracket(expr: str) -> bool:
     :param expr: str
     :return: bool
     """
-    stack = list() #list를 stack구조로 사용
+    stack = list()
     table = {')': '(', ']': '[', '}': '{', '>': '<'}
     for char in expr:
-        if char not in table:
+        # if char not in table:
+        if char in table.values():  # "([{<"
             stack.append(char)
-        elif not stack or table[char] != stack.pop():
-             return False
-        else:
-            pass
-    return len(stack) == 0
+        elif char in table.keys():  # ")]}>"
+            if not stack or table[char] != stack.pop(): #닫는게 있는데 여는게 없어 스택이 비어있거나, 닫는거랑 짝이 안맞으면
+                return False
+    return len(stack) == 0 #뭔가 남아있으면 짝이 안맞는거임 -> false
 
 
 if __name__ == "__main__":
