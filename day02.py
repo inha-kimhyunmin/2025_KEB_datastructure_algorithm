@@ -1,6 +1,13 @@
+def decrease_front_rear():
+    global size, front, rear
+    if front >= size and rear >= size:
+        front = front % size
+        rear = rear % size
+
+
 def is_queue_full() :
     global size, queue, front, rear
-    if rear - front == 4:
+    if rear - front == size:
         return True
     else:
         return False
@@ -18,7 +25,7 @@ def en_queue(data) :
     if is_queue_full():
         print("큐가 꽉 찼습니다.")
         return
-    queue[rear % 4] = data
+    queue[rear % size] = data
     rear += 1
 
 def de_queue() :
@@ -26,8 +33,8 @@ def de_queue() :
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    data = queue[front % 4]
-    queue[front % 4] = None
+    data = queue[front % size]
+    queue[front % size] = None
     front += 1
     return data
 
@@ -36,13 +43,16 @@ def peek() :
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    return queue[front+1]
+    return queue[front % size]
 
 def printqueue(queue):
     global size, front, rear
+    print("[", end = '')
     for i in range(front,rear):
-        print(queue[i % 4], end = ' ')
-    print()
+        print(queue[i % size], end = '')
+        if i != rear - 1:
+            print(end = ', ')
+    print("]")
 
 size = int(input("큐의 크기를 입력 : "))
 queue = [None for _ in range(size)]
