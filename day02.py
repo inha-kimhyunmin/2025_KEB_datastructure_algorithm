@@ -1,21 +1,30 @@
-def check_bracket(expr: str) -> bool:
-    """
-    check bracket in expression.
-    :param expr: str
-    :return: bool
-    """
-    stack = list()
-    table = {')': '(', ']': '[', '}': '{', '>': '<'}
-    for char in expr:
-        # if char not in table:
-        if char in table.values():  # "([{<"
-            stack.append(char)
-        elif char in table.keys():  # ")]}>"
-            if not stack or table[char] != stack.pop(): #닫는게 있는데 여는게 없어 스택이 비어있거나, 닫는거랑 짝이 안맞으면
-                return False
-    return len(stack) == 0 #뭔가 남아있으면 짝이 안맞는거임 -> false
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+class Queue:
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+
+    def enqueue(self, item):
+        while len(self.s1) != 0:
+            self.s2.append(self.s1.pop())
+        self.s1.append(item)
+        while len(self.s2) != 0:
+            self.s1.append(self.s2.pop())
+
+    def dequeue(self):
+        if len(self.s1) == 0:
+            raise Exception("cannot pop from empty queue")
+        return self.s1.pop()
 
 
-if __name__ == "__main__":
-    expression = input("Input expression : ")
-    print(check_bracket(expression))
+a = Queue()
+
+for i in range(1, 5):
+    a.enqueue(i)
+
+for _ in range(4):
+    print(a.dequeue())
