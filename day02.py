@@ -3,28 +3,44 @@ class Node:
         self.data = data
         self.next = next
 
+
 class Queue:
     def __init__(self):
-        self.s1 = []
-        self.s2 = []
+        self.front = None
+        self.rear = None
+        self._size = 0
 
-    def enqueue(self, item):
-        while len(self.s1) != 0:
-            self.s2.append(self.s1.pop())
-        self.s1.append(item)
-        while len(self.s2) != 0:
-            self.s1.append(self.s2.pop())
+    def enqueue(self, data):
+        self._size = self._size + 1
+        node = Node(data)
+        if self.rear is None:
+            self.front = node
+            self.rear = node
+        else:
+            self.rear.next = node
+            self.rear = node  # increase rear
+
 
     def dequeue(self):
-        if len(self.s1) == 0:
-            raise Exception("cannot pop from empty queue")
-        return self.s1.pop()
+        if self.front is None:
+            raise IndexError('dequeue from empty queue')
+        self._size = self._size - 1
+        temp = self.front  # backup
+        self.front = self.front.next  # update
+        if self.front is None:
+            self.real = None
+        return temp.data
 
 
-a = Queue()
+    def size(self) -> int:
+        return self._size
 
-for i in range(1, 5):
-    a.enqueue(i)
 
-for _ in range(4):
-    print(a.dequeue())
+if __name__ == "__main__":
+    q = Queue()
+    q.enqueue(7)
+    q.enqueue(-11)
+    q.enqueue(8)
+    print(q.size())
+    print(q.dequeue())
+    print(q.size())
