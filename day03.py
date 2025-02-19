@@ -29,33 +29,62 @@ def post_order(node):
     print(node.data, end = ' -> ')
 
 
-# n1, n2 ,n3 = [TreeNode(data) for data in range(3)] 이 방법으로 만들어도 된다.
+if __name__ == "__main__":
+    groups = ['블랙핑크', '레드벨벳', '마마무', '에이핑크', '걸스데이', '트와이스']
+    root = None
 
-node1 = TreeNode(1)
-node2 = TreeNode(2)
-node3 = TreeNode(3)
-node4 = TreeNode(4)
-node5 = TreeNode(5)
-node6 = TreeNode(6)
-node7 = TreeNode(7)
-node8 = TreeNode(8)
+    node = TreeNode(groups[0])
+    root = node #초기화
+    
+    #트리 생성 코드
+    for group in groups[1:]:
+        node = TreeNode(group)
+        current = root
+        while True:
+            if node.data < current.data:
+                if current.left is None:
+                    current.left = node
+                    break
+                else:
+                    current = current.left
 
-node1.left = node2
-node1.right = node3
-node2.left = node4
-node2.right = node5
-node3.left = node6
-node4.right = node7
-node6.right = node8
+            else:
+                if current.right is None:
+                    current.right = node
+                    break
+                else:
+                    current = current.right
 
-#        1
-#    2      3
-#  4   5   6
-#   7        8
-#
-pre_order(node1)
-print("End")
-in_order(node1)
-print("End")
-post_order(node1)
-print("End")
+    find_group = input("찾는 그룹명 입력 : ")
+    
+    # 탑색 코드
+    current = root
+    while True:
+        if find_group == current.data:
+            print(f"{find_group}이(가) 존재합니다")
+            break
+        elif find_group < current.data:
+            if current.left is not None:
+                current = current.left
+            else:
+                print(f"{find_group}이(가) 존재하지 않습니다")
+                break
+        else:
+            if current.right is not None:
+                current = current.right
+            else:
+                print(f"{find_group}이(가) 존재하지 않습니다")
+                break
+
+
+
+
+    #                 블랙핑크
+    #          레드벨벳      에이핑크
+    #     걸스데이   마마무        트와이스
+    pre_order(root)
+    print("End")
+    in_order(root)
+    print("End")
+    post_order(root)
+    print("End")
