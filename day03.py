@@ -76,7 +76,42 @@ if __name__ == "__main__":
                 print(f"{find_group}이(가) 존재하지 않습니다")
                 break
 
+    #제거 코드
+    deleteName = '마마무'
 
+    current = root
+    parent = None
+    while True:
+        if deleteName == current.data:
+            if current.left == None and current.right == None: #자식이 없음
+                if parent.left == current:
+                    parent.left = None
+                else: #논리상 current가 parent의 왼쪽에도 없고 오른쪽에도 없는 경우는 없음
+                    parent.right = None
+            elif current.left != None and current.right == None: #왼쪽에 자식하나
+                if parent.left == current:
+                    parent.left = current.left
+                else:
+                    parent.right = current.left
+            elif current.left == None and current.right != None: #오른쪽에 자식하나
+                if parent.left == current:
+                    parent.left = current.right
+                else:
+                    parent.right = current.right
+            else: #자식이 둘 다 있는 경우 ->2일차 숙제
+                pass
+        elif deleteName < current.data:
+            if current.left == None:
+                print(f"{deleteName}이(가) 트리에 없습니다!")
+                break
+            parent = current
+            current = current.left
+        else:
+            if current.right == None:
+                print(f"{deleteName}이(가) 트리에 없습니다!")
+                break
+            parent = current
+            current = current.right
 
 
     #                 블랙핑크
