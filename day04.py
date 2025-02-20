@@ -71,9 +71,9 @@ print(new_ary, len(new_ary))
 
 index = 0
 while len(new_ary) > g_size - 1:	# 간선의 개수가 '정점 개수-1'일 때까지 반복
-	start = new_ary[index][1]
+	start = new_ary[index][1] #정렬되어있으니 가장 비용이 큰 간선
 	end = new_ary[index][2]
-	saveCost = new_ary[index][0]
+	saveCost = new_ary[index][0] #가중치 저장
 
 	G1.graph[start][end] = 0
 	G1.graph[end][start] = 0
