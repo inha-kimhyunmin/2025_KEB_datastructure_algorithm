@@ -17,34 +17,19 @@ def print_graph(g) :
         print()
     print()
 
+def dfs(g, current, find_vtx, visited):
+    visited.append(current)
+    if current == find_vtx:
+        return True
+    for vertex in range(g.SIZE):
+        if g.graph[current][vertex] != 0 and vertex not in visited:
+            if dfs(g, vertex, find_vtx, visited):
+                return True
+    return False
 
 def find_vertex(g, find_vtx) -> bool:
-	stack = []
-	visited_ary = []
-
-	current = 0
-	stack.append(current)
-	visited_ary.append(current)
-
-	while len(stack) != 0:
-		next = None
-		for vertex in range(g_size) :
-			if g.graph[current][vertex] != 0 :
-				if vertex in visited_ary :
-					pass
-				else :
-					next = vertex
-					break
-		if next is not None:
-			current = next
-			stack.append(current)
-			visited_ary.append(current)
-		else :
-			current = stack.pop()
-	if find_vtx in visited_ary :
-		return True
-	else :
-		return False
+    visited = []
+    return dfs(g, 0, find_vtx, visited)
 
 
 G1 = None
