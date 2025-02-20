@@ -1,3 +1,5 @@
+from collections import deque
+
 class Graph:
 	def __init__(self, size) :
 		self.SIZE = size
@@ -16,6 +18,25 @@ def print_graph(g) :
             print(f"{g.graph[row][col]:2}", end=' ')
         print()
     print()
+
+def bfs(g, current, find_vtx):
+    visited = [0 for _ in range(g.SIZE)]
+    queue = deque([current])
+    visited[current] = 1
+    if visited[find_vtx] == 1:
+        return True
+    while queue:
+        i = queue.popleft()
+        for vertex in range(g.SIZE):
+            if g.graph[i][vertex] != 0 and visited[vertex] == 0:
+                queue.append(vertex)
+                visited[vertex] = 1
+                if visited[find_vtx] == 1:
+                    return True
+    return False
+
+def find_vertex_bfs(g, find_vtx):
+    return bfs(g, 0, find_vtx)
 
 def dfs(g, current, find_vtx, visited):
     visited.append(current)
@@ -78,8 +99,8 @@ while len(new_ary) > g_size - 1:	# 간선의 개수가 '정점 개수-1'일 때�
 	G1.graph[start][end] = 0
 	G1.graph[end][start] = 0
 
-	startYN = find_vertex(G1, start)
-	endYN = find_vertex(G1, end)
+	startYN = find_vertex_bfs(G1, start)
+	endYN = find_vertex_bfs(G1, end)
 
 	if startYN and endYN :
 		del new_ary[index]
