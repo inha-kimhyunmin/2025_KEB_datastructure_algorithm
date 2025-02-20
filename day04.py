@@ -157,10 +157,11 @@ def insert(current, data):
         node = TreeNode(data)
         return node
     elif data < current.data:
-        current.left = data(current.left, data)
+        current.left = insert(current.left, data)
     else:
-        current.right = data(current.right, data)
+        current.right = insert(current.right, data)
     return current
+
 
 if __name__ == "__main__":
     # groups = random.sample(range(1,50), 10)
@@ -170,7 +171,7 @@ if __name__ == "__main__":
     root = None
     # 삽입 코드
     # init_tree(groups)
-    for group in groups[0:]:
+    for group in groups:
         root = insert(root, group)
 
     # 탐색 코드
